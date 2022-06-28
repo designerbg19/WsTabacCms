@@ -1,0 +1,17 @@
+# lists:
+#   type: rest
+#   resource: App\Controller\MerchController
+#   prefix: api
+
+api_login_validator:
+  path: /api/validator
+
+api_login_check_user:
+  path: /api/login_check_user
+
+api_login_check_merch:
+  path: /api/merch/login_check_merch
+
+gesdinet_jwt_refresh_token:
+  path:       /api/token/refresh
+  controller: gesdinet.jwtrefreshtoken::refresh

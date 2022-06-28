@@ -1,0 +1,59 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    imgBaseDir: '/uploads/images'
+    images: '%kernel.project_dir%/public%imgBaseDir%'
+    csvBaseDir: '/uploads/csv'
+    csv: '%kernel.project_dir%/public%csvBaseDir%'
+    rapport_file_directory: '%kernel.project_dir%/public/uploads/rapport'
+    new_install_directory: '%kernel.project_dir%/public/uploads/newinstallpdv'
+    image_merch_directory: '%kernel.project_dir%/public/uploads/merchsimage'
+    images_pos_directory: '%kernel.project_dir%/public/uploads/pos'
+    images_param_directory: '%kernel.project_dir%/public/uploads/param'
+    images_closed_repport_directory: '%kernel.project_dir%/public/uploads/minirapportimages'
+    app.path.product_images: '%kernel.project_dir%/public/uploads/minirapportimages'
+
+    #product image
+    image_product_directory: '%kernel.project_dir%/public/uploads/product'
+
+    image_rapportPDV_directory: '%kernel.project_dir%/public/uploads/rapport/rapportPDv'
+    image_rapportDebutVisit_directory: '%kernel.project_dir%/public/uploads/rapport/rapportDebutVisit'
+    image_rapportFinVisit_directory: '%kernel.project_dir%/public/uploads/rapport/rapportFinVisit'
+
+    #upload csv client
+    csv_data_upload_directory: '%kernel.project_dir%/public/uploads/csvdata'
+
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    acme_api.event.jwt_created_listener:
+        class: App\EventListener\JWTCreatedListener
+        arguments: [ '@request_stack' ]
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+    App\Service\FileUploader:
+       # arguments:
+        #    $targetDirectory: '%new_install_directory%'

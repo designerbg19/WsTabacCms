@@ -1,0 +1,282 @@
+[1mdiff --git a/src/Controller/webservices/ClientController.php b/src/Controller/webservices/ClientController.php[m
+[1mindex 1a0a425..9b112b4 100644[m
+[1m--- a/src/Controller/webservices/ClientController.php[m
+[1m+++ b/src/Controller/webservices/ClientController.php[m
+[36m@@ -313,37 +313,7 @@[m [mclass ClientController extends MainController[m
+                   "nom" => 'Mohamed Mhajbi',[m
+               ));[m
+ */[m
+[31m-        foreach ((array)$infClient as $element) {[m
+[31m-            $typeClientNew_id = $element['typeClientNew_id'];[m
+[31m-            $AgeClient_id = $element['AgeClient_id'];[m
+[31m-            $nbrEnfant_id = $element['nbrEnfant_id'];[m
+[31m-            $situationFamil_id = $element['situationFamil_id'];[m
+[31m-            $telephone = $element['telephone'];[m
+[31m-            $nom = $element['nom'];[m
+[31m-[m
+[31m-            $infoClient = new InfoClient();[m
+[31m-            if ($typeClientNew_id==3){[m
+[31m-                $infoClient->setTelephone($telephone);[m
+[31m-                $infoClient->setNom($nom);[m
+[31m-                $typeClientNew = $this->em->getRepository(TypeClient::class)->find($typeClientNew_id);[m
+[31m-                $infoClient->setTypeClientNew($typeClientNew);[m
+[31m-            }else{[m
+[31m-                $infoClient->setTelephone($telephone);[m
+[31m-                $infoClient->setNom($nom);[m
+[31m-                $typeClientNew = $this->em->getRepository(TypeClient::class)->find($typeClientNew_id);[m
+[31m-                $infoClient->setTypeClientNew($typeClientNew);[m
+[31m-                $nbrEnfant = $this->em->getRepository(NbrEnfant::class)->find($nbrEnfant_id);[m
+[31m-                $infoClient->setNbrEnfant($nbrEnfant);[m
+[31m-                $AgeClient = $this->em->getRepository(Age::class)->find($AgeClient_id);[m
+[31m-                $infoClient->setAgeClient($AgeClient);[m
+[31m-                $situationFamil = $this->em->getRepository(SituationFamilialle::class)->find($situationFamil_id);[m
+[31m-                $infoClient->setSituationFamil($situationFamil);[m
+ [m
+[31m-            }[m
+[31m-            $infoClient->setClient($client);[m
+[31m-            $this->em->persist($infoClient);[m
+[31m-            $this->em->flush();[m
+[31m-        }[m
+         //Get prodect id and new stoke min for each prodect[m
+         foreach ((array)$stokeArray as $element) {[m
+             if (isset($element['id']) && isset($element['stoke'])) {[m
+[36m@@ -496,6 +466,37 @@[m [mclass ClientController extends MainController[m
+ [m
+             $client_sheet->setIsDraft(1);[m
+ [m
+[32m+[m[32m            foreach ((array)$infClient as $element) {[m
+[32m+[m[32m                $typeClientNew_id = $element['typeClientNew_id'];[m
+[32m+[m[32m                $AgeClient_id = $element['AgeClient_id'];[m
+[32m+[m[32m                $nbrEnfant_id = $element['nbrEnfant_id'];[m
+[32m+[m[32m                $situationFamil_id = $element['situationFamil_id'];[m
+[32m+[m[32m                $telephone = $element['telephone'];[m
+[32m+[m[32m                $nom = $element['nom'];[m
+[32m+[m
+[32m+[m[32m                $infoClient = new InfoClient();[m
+[32m+[m[32m                if ($typeClientNew_id==3){[m
+[32m+[m[32m                    $infoClient->setTelephone($telephone);[m
+[32m+[m[32m                    $infoClient->setNom($nom);[m
+[32m+[m[32m                    $typeClientNew = $this->em->getRepository(TypeClient::class)->find($typeClientNew_id);[m
+[32m+[m[32m                    $infoClient->setTypeClientNew($typeClientNew);[m
+[32m+[m[32m                }else{[m
+[32m+[m[32m                    $infoClient->setTelephone($telephone);[m
+[32m+[m[32m                    $infoClient->setNom($nom);[m
+[32m+[m[32m                    $typeClientNew = $this->em->getRepository(TypeClient::class)->find($typeClientNew_id);[m
+[32m+[m[32m                    $infoClient->setTypeClientNew($typeClientNew);[m
+[32m+[m[32m                    $nbrEnfant = $this->em->getRepository(NbrEnfant::class)->find($nbrEnfant_id);[m
+[32m+[m[32m                    $infoClient->setNbrEnfant($nbrEnfant);[m
+[32m+[m[32m                    $AgeClient = $this->em->getRepository(Age::class)->find($AgeClient_id);[m
+[32m+[m[32m                    $infoClient->setAgeClient($AgeClient);[m
+[32m+[m[32m                    $situationFamil = $this->em->getRepository(SituationFamilialle::class)->find($situationFamil_id);[m
+[32m+[m[32m                    $infoClient->setSituationFamil($situationFamil);[m
+[32m+[m
+[32m+[m[32m                }[m
+[32m+[m[32m                $infoClient->setClient($client_sheet);[m
+[32m+[m[32m                $this->em->persist($infoClient);[m
+[32m+[m[32m                $this->em->flush();[m
+[32m+[m[32m            }[m
+ [m
+             $this->em->persist($client_sheet);[m
+             $this->em->flush();[m
+[1mdiff --git a/src/Controller/webservices/ProduitController.php b/src/Controller/webservices/ProduitController.php[m
+[1mindex 0e4b192..dd6b2f8 100644[m
+[1m--- a/src/Controller/webservices/ProduitController.php[m
+[1m+++ b/src/Controller/webservices/ProduitController.php[m
+[36m@@ -22,7 +22,7 @@[m [mclass ProduitController extends MainController[m
+      */[m
+     public function index()[m
+     {[m
+[31m-        $produit = $this->em->getRepository(Produit::class)->findall();[m
+[32m+[m[32m        $produit = $this->em->getRepository(Produit::class)->produit();[m
+         if (isset($produit)) {[m
+             return $this->successResponse($produit);[m
+         }[m
+[1mdiff --git a/src/Controller/webservices/RapportTlpController.php b/src/Controller/webservices/RapportTlpController.php[m
+[1mindex f2b2c83..72dcce5 100644[m
+[1m--- a/src/Controller/webservices/RapportTlpController.php[m
+[1m+++ b/src/Controller/webservices/RapportTlpController.php[m
+[36m@@ -43,12 +43,12 @@[m [mclass RapportTlpController extends MainController[m
+         /////////////////////////////////////[m
+         ///NOT FINISH[m
+         ///[m
+[32m+[m
+         $rapportTlp = Array([m
+             'RapportTlp_IsPlanogramme' => true,[m
+             'RapportTlp_IsEclairage' => true,[m
+         );[m
+ [m
+[31m-[m
+         $RapportTlp_ProduitIds_Quantites = Array('1'=>'100', '2'=>'200', '3'=>'300');[m
+ [m
+         $IsPlanogramme = $rapportTlp['RapportTlp_IsPlanogramme'];[m
+[1mdiff --git a/src/Entity/Client.php b/src/Entity/Client.php[m
+[1mindex c43acc0..9ac3829 100644[m
+[1m--- a/src/Entity/Client.php[m
+[1m+++ b/src/Entity/Client.php[m
+[36m@@ -190,192 +190,116 @@[m [mclass Client[m
+ [m
+     /**[m
+      * @ORM\OneToMany(targetEntity="App\Entity\InfoClient", mappedBy="client")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $infoClient;[m
+ [m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvSuperficie", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $superficie;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvEmplacements", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $emplacement;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvEnvironnements", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $environnement;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvTypesQuartier", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $typeDeQuartier;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvVisibilite", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $visibiliter;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvClasses", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $classe;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvTypologies", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $typologie;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\PdvPresentoire", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $presentoire;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\Quartier", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $quartier;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\MarketingRegieTabac", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $regieTabac;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\MarketingCampagneEnCours", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $companieOncour;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\MarketingRecette", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $recette;[m
+ [m
+     /**[m
+      * @ORM\ManyToMany(targetEntity="App\Entity\Produit", inversedBy="clients",fetch="LAZY")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $produit;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\NbrEmployer", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $nbrEmplyer;[m
+ [m
+     /**[m
+      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="clients")[m
+[31m-    <<<<<<< HEAD[m
+[31m-     * @Serializer\MaxDepth(1)[m
+[31m-    =======[m
+      * @ORM\JoinColumn(nullable=true)[m
+[31m-    >>>>>>> 3881327102cde77174f37fca309a015860fba05b[m
+      */[m
+     private $sheetClient;[m
+ [m
+     /**[m
+      * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="sheetClient")[m
+[31m-    <<<<<<< HEAD[m
+[31m-    
